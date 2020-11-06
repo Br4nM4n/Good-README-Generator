@@ -51,24 +51,24 @@ const questions  =  [
 ];
 
 // function to write README file
-function writeToFile (fileName, data) {
-    
+ function writeToFile(fileName, data) {
+    fs.writeFile(fileName, data,err =>{
+        if(err){
+            throw err;
+        }
+    });
+
         
 }
 
 // function to initialize program
 async function init() {
- inquirer.prompt(questions);
+ inquirer.prompt(questions).then(answers =>{
+     const response = generateMarkdown(answers);
+     console.log(answers);
+ })
 
-    try {
-        const response =  await prompt();
-        const readMe = generateMarkdown(response);
-        
-        await writeFileAsync("README.md", readMe);
-    } catch(err) {
-        console.log(err)
-    }
-
+   
     
 
 }
